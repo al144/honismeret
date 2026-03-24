@@ -54,6 +54,7 @@ class Quiz(models.Model):
     )
     
     is_active = models.BooleanField(default=True)
+    result = models.IntegerField(default=0)
 
     def __str__(self):
         return f"Quiz {self.id} - {self.user.username}"

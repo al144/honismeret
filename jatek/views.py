@@ -4,6 +4,7 @@ from .models import Question, Quiz, UserAnswer
 from .serializers import QuestionSerializer
 from rest_framework.permissions import IsAuthenticated
 import random
+from .helper import get_quiz_and_question, save_user_answer, finalize_quiz
 
 @api_view(["GET"])
 def questions(request):
@@ -19,34 +20,20 @@ def answer_question(request):
     selected_answer = request.data.get("selected_answer")
 
     if not all([quiz_id, question_id, selected_answer]):
-        return Response({"error": "Missing data"}, status=400)
+        return Response({"error": "Missing data, you need quiz_id:string, question_id:number, selected_answer:string"}, status=400)
 
-    try:
-        quiz = Quiz.objects.get(id=quiz_id)
-        question = Question.objects.get(id=question_id)
-        if not quiz.is_active:
-            return Response({"error":"This quiz is inactive, you can't answer anymore."}, status=400)
-    except (Quiz.DoesNotExist, Question.DoesNotExist):
-        return Response({"error": "Invalid quiz or question"}, status=404)
+    quiz, question, error = get_quiz_and_question(quiz_id, question_id, request.user)
+    if error:
+        return error
 
-    if quiz.user != request.user:
-        return Response({"error": "Unauthorized"}, status=403)
-
-    if not quiz.questions.filter(id=question.id).exists():
-        return Response({"error": "Question not part of this quiz"}, status=400)
-
-    user_answer, created = UserAnswer.objects.update_or_create(
-        quiz=quiz,
-        question=question,
-        defaults={"selected_answer": selected_answer}
-    )
+    user_answer, created = save_user_answer(quiz, question, selected_answer)
 
     if selected_answer != question.correct_answer:
-        quiz.is_active = False
-        quiz.save()
+        correct_count = finalize_quiz(quiz)
         return Response({
             "message": "Wrong answer! Quiz is now finished.",
             "quiz_active": quiz.is_active,
+            "result": correct_count,
             "created": created
         })
 
@@ -81,7 +68,5 @@ def create_quiz_by_diff(request, diff):
         "questions": serialized_questions.data
     })
 
-@api_view(["GET"])
-@permission_classes([IsAuthenticated])
 def create_quiz(request):
     return create_quiz_by_diff(request, 0)

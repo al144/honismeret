@@ -24,6 +24,8 @@ def answer_question(request):
     try:
         quiz = Quiz.objects.get(id=quiz_id)
         question = Question.objects.get(id=question_id)
+        if not quiz.is_active:
+            return Response({"error":"This quiz is inactive, you can't answer anymore."}, status=400)
     except (Quiz.DoesNotExist, Question.DoesNotExist):
         return Response({"error": "Invalid quiz or question"}, status=404)
 
@@ -82,4 +84,4 @@ def create_quiz_by_diff(request, diff):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def create_quiz(request):
-    create_quiz_by_diff(request, 0)
+    return create_quiz_by_diff(request, 0)

@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from jatek.controllers import hub
 
 urlpatterns = [
+    path('', hub.Hub),
     path('admin/', admin.site.urls),
 ]

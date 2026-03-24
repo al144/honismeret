@@ -52,6 +52,8 @@ class Quiz(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True
     )
+    
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"Quiz {self.id} - {self.user.username}"
@@ -76,6 +78,6 @@ class UserAnswer(models.Model):
     )
     class Meta:
         unique_together = ("quiz", "question")
-        
+
     def __str__(self):
         return f"{self.quiz.id} - {self.question.id} - {self.selected_answer}"

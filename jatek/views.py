@@ -39,8 +39,18 @@ def answer_question(request):
         defaults={"selected_answer": selected_answer}
     )
 
+    if selected_answer != question.correct_answer:
+        quiz.is_active = False
+        quiz.save()
+        return Response({
+            "message": "Wrong answer! Quiz is now finished.",
+            "quiz_active": quiz.is_active,
+            "created": created
+        })
+
     return Response({
-        "message": "Answer saved",
+        "message": "Answer saved. Correct!",
+        "quiz_active": quiz.is_active,
         "created": created
     })
 

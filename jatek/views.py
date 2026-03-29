@@ -6,11 +6,13 @@ from rest_framework.permissions import IsAuthenticated
 import random
 from .helper import get_quiz_and_question, save_user_answer, finalize_quiz
 
+
 @api_view(["GET"])
 def questions(request):
     questions = Question.objects.all()
-    serialized = QuestionSerializer(questions, many = True)
+    serialized = QuestionSerializer(questions, many=True)
     return Response(serialized.data)
+
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
@@ -43,11 +45,12 @@ def answer_question(request):
         "created": created
     })
 
+
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def create_quiz_by_diff(request, diff):
     num_questions = 2
-    if(diff == 0):
+    if diff == 0:
         all_questions = list(Question.objects.all())
     else:
         all_questions = list(Question.objects.filter(difficulty=diff))
@@ -58,7 +61,6 @@ def create_quiz_by_diff(request, diff):
     selected_questions = random.sample(all_questions, num_questions)
 
     quiz = Quiz.objects.create(user=request.user)
-
     quiz.questions.set(selected_questions)
 
     serialized_questions = QuestionSerializer(selected_questions, many=True)
@@ -68,5 +70,53 @@ def create_quiz_by_diff(request, diff):
         "questions": serialized_questions.data
     })
 
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated]) 
 def create_quiz(request):
     return create_quiz_by_diff(request, 0)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def create_millionaire_quiz(request):
+    """15 kérdés növekvő nehézségben: 5 könnyű, 5 közepes, 5 nehéz"""
+    
+    questions = []
+    
+    easy = list(Question.objects.filter(difficulty=1))
+    if len(easy) < 5:
+        return Response({
+            "error": f"Nincs elég könnyű kérdés. Van {len(easy)} db, de 5 kell."
+        }, status=400)
+    questions.extend(random.sample(easy, 5))
+    
+    medium = list(Question.objects.filter(difficulty=2))
+    if len(medium) < 5:
+        return Response({
+            "error": f"Nincs elég közepes kérdés. Van {len(medium)} db, de 5 kell."
+        }, status=400)
+    questions.extend(random.sample(medium, 5))
+    
+    hard = list(Question.objects.filter(difficulty=3))
+    if len(hard) < 5:
+        return Response({
+            "error": f"Nincs elég nehéz kérdés. Van {len(hard)} db, de 5 kell."
+        }, status=400)
+    questions.extend(random.sample(hard, 5))
+    
+    quiz = Quiz.objects.create(user=request.user)
+    quiz.questions.set(questions)
+    
+    serialized = QuestionSerializer(questions, many=True)
+    
+    return Response({
+        "quiz_id": quiz.id,
+        "questions": serialized.data,
+        "total_questions": 15,
+        "difficulty_breakdown": {
+            "easy": 5,
+            "medium": 5,
+            "hard": 5
+        }
+    })

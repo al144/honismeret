@@ -1,0 +1,722 @@
+[
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Mikor született Oláh István?",
+      "answer_a": "1880. március 5-én",
+      "answer_b": "1890. március 5-én",
+      "answer_c": "1894. augusztus 12-én",
+      "answer_d": "1908. június 13-án",
+      "correct_answer": "B",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Hol született Oláh István?",
+      "answer_a": "Debrecenben",
+      "answer_b": "Kassán",
+      "answer_c": "Tiszadobon",
+      "answer_d": "Bécsben",
+      "correct_answer": "C",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen vallású családból származott Oláh István?",
+      "answer_a": "Római katolikus",
+      "answer_b": "Evangélikus",
+      "answer_c": "Református",
+      "answer_d": "Görögkatolikus",
+      "correct_answer": "C",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Hány leánygyermeke született Oláh Istvánnak?",
+      "answer_a": "Egy",
+      "answer_b": "Két",
+      "answer_c": "Három",
+      "answer_d": "Nem született gyermeke",
+      "correct_answer": "B",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Melyik háború kitörése törte ketté Oláh István civil életét?",
+      "answer_a": "Második világháború",
+      "answer_b": "Első világháború",
+      "answer_c": "1848-49-es szabadságharc",
+      "answer_d": "Harmincéves háború",
+      "correct_answer": "B",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Melyik testrészét érte súlyos csonkolásos sérülés 1917-ben?",
+      "answer_a": "A bal lábát",
+      "answer_b": "A jobb kezét",
+      "answer_c": "A bal kezét",
+      "answer_d": "A jobb lábát",
+      "correct_answer": "B",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen tantárgyat tanított Oláh István a rajz és a mértan mellett, sérülése ellenére is?",
+      "answer_a": "Kémiát",
+      "answer_b": "Tornát (testnevelést)",
+      "answer_c": "Történelmet",
+      "answer_d": "Földrajzot",
+      "correct_answer": "B",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Mikor hunyt el Oláh István hősi halált halva?",
+      "answer_a": "1917. február 27-én",
+      "answer_b": "1922. augusztus 12-én",
+      "answer_c": "1944. szeptember 1-jén",
+      "answer_d": "1955-ben",
+      "correct_answer": "C",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Hol található Oláh István végső nyughelye?",
+      "answer_a": "A Tiszadobi temetőben",
+      "answer_b": "A Debreceni Köztemetőben",
+      "answer_c": "A Kerepesi temetőben",
+      "answer_d": "A Kassai temetőben",
+      "correct_answer": "B",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Melyik városban nyílt meg az első hazai gépészeti felső ipartanoda 1872-ben?",
+      "answer_a": "Debrecenben",
+      "answer_b": "Budapesten",
+      "answer_c": "Kassán",
+      "answer_d": "Szegeden",
+      "correct_answer": "C",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Ki rendelte el a debreceni fémipari szakiskola megalapítását?",
+      "answer_a": "Eötvös József",
+      "answer_b": "Kossuth Ferenc",
+      "answer_c": "Mechwart András",
+      "answer_d": "Haranghy Jenő",
+      "correct_answer": "B",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Kinek a nevét vette fel az iskola 1955-ben?",
+      "answer_a": "Eötvös József",
+      "answer_b": "Kossuth Ferenc",
+      "answer_c": "Mechwart András",
+      "answer_d": "Oláh István",
+      "correct_answer": "C",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen oklevelet kaptak a végzettek az iskola technikum korában, amely az érettségivel volt egyenértékű?",
+      "answer_a": "Gimnáziumi érettségit",
+      "answer_b": "Szakmunkás bizonyítványt",
+      "answer_c": "\"Technikus\" oklevelet",
+      "answer_d": "Mérnöki diplomát",
+      "correct_answer": "C",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Melyik évtizedtől vált az informatika kiemelt szakmacsoporttá az iskolában?",
+      "answer_a": "A 70-es évektől",
+      "answer_b": "A 80-as évektől",
+      "answer_c": "A 90-es évektől",
+      "answer_d": "A 2010-es évektől",
+      "correct_answer": "C",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen néven működött az intézmény 1908 és 1941 között?",
+      "answer_a": "Felső ipariskola",
+      "answer_b": "Technikum",
+      "answer_c": "Szakközépiskola",
+      "answer_d": "Szakiskola",
+      "correct_answer": "D",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Hogyan hívták Oláh István feleségét?",
+      "answer_a": "Zákány Borbála",
+      "answer_b": "Sári Ida",
+      "answer_c": "Éva",
+      "answer_d": "Györgyike",
+      "correct_answer": "B",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen vallású volt Sári Ida, Oláh István felesége?",
+      "answer_a": "Református",
+      "answer_b": "Evangélikus",
+      "answer_c": "Római katolikus",
+      "answer_d": "Izraelita",
+      "correct_answer": "C",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Melyik minisztérium alá tartozó Szakképzési Centrumhoz került az intézmény a fenntartóváltás után?",
+      "answer_a": "Oktatási Minisztérium",
+      "answer_b": "Nemzetgazdasági Minisztérium",
+      "answer_c": "Honvédelmi Minisztérium",
+      "answer_d": "Belügyminisztérium",
+      "correct_answer": "B",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Mi okozta Oláh István halálát 1944-ben?",
+      "answer_a": "Frontvonalbeli sebesülés",
+      "answer_b": "Betegség",
+      "answer_c": "Az iskola épületét ért bombatalálat",
+      "answer_d": "Autóbaleset",
+      "correct_answer": "C",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen nyelvű kéttannyelvű osztályok indultak az iskolában a modernizáció időszakában?",
+      "answer_a": "Angol",
+      "answer_b": "Német",
+      "answer_c": "Francia",
+      "answer_d": "Orosz",
+      "correct_answer": "B",
+      "difficulty": 1
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Hol ápolták Oláh Istvánt hónapokig a sorsfordító sebesülése után?",
+      "answer_a": "A debreceni hadikórházban",
+      "answer_b": "A kassai ipartanodában",
+      "answer_c": "A bécsi 2. számú tartalékkórházban",
+      "answer_d": "A budapesti Műcsarnokban",
+      "correct_answer": "C",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen kitüntetéseket kapott Oláh István a katonai helytállásáért?",
+      "answer_a": "Arany Vitézségi Érmet",
+      "answer_b": "Katonai Érdemkeresztet és német Vaskeresztet",
+      "answer_c": "Mária Terézia Katonai Rendet",
+      "answer_d": "Debrecen Város Közoktatásáért díjat",
+      "correct_answer": "B",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Melyik debreceni grafikus központnak volt választmányi tagja Oláh István?",
+      "answer_a": "Ajtósi Dürer Céh",
+      "answer_b": "Műcsarnok",
+      "answer_c": "Képzőművészeti Társulat",
+      "answer_d": "Debreceni Rajztanárok Egyesülete",
+      "correct_answer": "A",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Hol rendeztek kiállítást 1942-ben, amelyen Oláh István nagy kitüntetésben részesült?",
+      "answer_a": "Bécsben",
+      "answer_b": "A debreceni Déri Múzeumban",
+      "answer_c": "A budapesti Műcsarnokban",
+      "answer_d": "Kassán",
+      "correct_answer": "C",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Hány órát tanított hetente Oláh István az 1927/28-as tanévben?",
+      "answer_a": "11 órát",
+      "answer_b": "15 órát",
+      "answer_c": "23 órát",
+      "answer_d": "50 órát",
+      "correct_answer": "C",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Melyik iparművésszel dolgozott közösen Oláh István az \"Angol Királynő\" szálloda belső átalakításán 1934-ben?",
+      "answer_a": "Eötvös Józseffel",
+      "answer_b": "Haranghy Jenővel",
+      "answer_c": "Mechwart Andrással",
+      "answer_d": "Ajtósi Dürerrel",
+      "correct_answer": "B",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Mi volt a pontos neve 1923-ban annak az iskolának, ahol Oláh István hivatalosan kinevezett tanár lett?",
+      "answer_a": "Felső ipariskola",
+      "answer_b": "Mechwart András Gépipari Technikum",
+      "answer_c": "Állami Fa- és Fémipari Szakiskola",
+      "answer_d": "Debreceni Szakképzés Centrum",
+      "correct_answer": "C",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen hálózati akadémiává vált az iskola az informatikai robbanás időszakában?",
+      "answer_a": "Microsoft Képzőközpont",
+      "answer_b": "CISCO Hálózati Akadémia",
+      "answer_c": "Oracle Akadémia",
+      "answer_d": "IBM Képzési Központ",
+      "correct_answer": "B",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Ki volt a magyar iparoktatás eszmei atyja?",
+      "answer_a": "Kossuth Ferenc",
+      "answer_b": "Eötvös József",
+      "answer_c": "Mechwart András",
+      "answer_d": "Haranghy Jenő",
+      "correct_answer": "B",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Melyik évben sikerült visszaállítani az ötéves technikusképzést a szakközépiskolai reformok után?",
+      "answer_a": "1955-ben",
+      "answer_b": "1970-ben",
+      "answer_c": "1985-ben",
+      "answer_d": "1990-ben",
+      "correct_answer": "C",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen új szakirányok jelentek meg a gépészet mellett a technikumok 1950-1970 közötti korszakában?",
+      "answer_a": "Faipari és építőipari képzés",
+      "answer_b": "Híradásipari és műszeripari képzés",
+      "answer_c": "Informatikai képzés",
+      "answer_d": "Mezőgazdasági gépész képzés",
+      "correct_answer": "B",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen városi kitüntetést kapott meg az iskola másodszor is 2018-ban?",
+      "answer_a": "\"Debrecen Város Kiváló Iskolája\"",
+      "answer_b": "\"A Nemzet Tehetségeiért\"",
+      "answer_c": "\"Debrecen Város Közoktatásáért\" díjat",
+      "answer_d": "\"Mechwart András Emlékérem\"",
+      "correct_answer": "C",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen katonai évfordulókon mondott gyakran ünnepi beszédeket a diákoknak Oláh István?",
+      "answer_a": "A mohácsi vész évfordulóin",
+      "answer_b": "A limanovai csata évfordulóin",
+      "answer_c": "Az aradi vértanúk emléknapján",
+      "answer_d": "A brody-i ütközet évfordulóin",
+      "correct_answer": "B",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Mi jellemezte az iskola oktatását a kezdeti években az elmélet és gyakorlat arányát tekintve?",
+      "answer_a": "A humán tantárgyak túlsúlya",
+      "answer_b": "Kizárólag elméleti oktatás",
+      "answer_c": "Az idő 87%-át a rajz és a műhelygyakorlat tette ki",
+      "answer_d": "Az idő felét a testnevelés tette ki",
+      "correct_answer": "C",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen funkciót látott el az iskola épülete az első világháború alatt?",
+      "answer_a": "Fegyverraktár volt",
+      "answer_b": "Hadikórház működött benne",
+      "answer_c": "Katonai laktanyaként szolgált",
+      "answer_d": "Átmeneti óvóhely volt a lakosságnak",
+      "correct_answer": "B",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen sorsra jutott az iskola gépparkja 1919-ben?",
+      "answer_a": "Bombatalálat érte és megsemmisült",
+      "answer_b": "Eladták a szomszédos országoknak",
+      "answer_c": "A román csapatok szinte minden gépet elszállítottak",
+      "answer_d": "Korszerűbbre cserélték őket",
+      "correct_answer": "C",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Mely tagozatokkal bővült az intézmény kínálata a két világháború között a túlélés érdekében?",
+      "answer_a": "Faipari tagozattal és építőipari tanfolyamokkal",
+      "answer_b": "Informatikai és műszeripari tagozattal",
+      "answer_c": "Kereskedelmi és mezőgazdasági tagozattal",
+      "answer_d": "Képzőművészeti és zenei tagozattal",
+      "correct_answer": "A",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Minek a tervezése köthető Oláh István nevéhez 1929-ből Debrecenben?",
+      "answer_a": "A Déri Múzeum homlokzata",
+      "answer_b": "A hősök fasorának emléktáblái",
+      "answer_c": "A fa- és fémipari szakiskola új szárnya",
+      "answer_d": "Az Angol Királynő szálloda alaprajza",
+      "correct_answer": "B",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "A rendes tanári és osztályfőnöki teendők mellett milyen tisztséget látott még el Oláh István az iskolában?",
+      "answer_a": "Igazgatóhelyettes volt",
+      "answer_b": "Ő volt a \"rajzszertár őre\"",
+      "answer_c": "Iskolaorvos volt",
+      "answer_d": "Könyvtáros volt",
+      "correct_answer": "B",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Melyik évtizedben vezették be a szakmunkásképzést (esztergályos, lakatos) a szakközépiskolai reformok során?",
+      "answer_a": "Az 1950-es években",
+      "answer_b": "A 70-es években",
+      "answer_c": "Az 1980-as években",
+      "answer_d": "Az 1990-es években",
+      "correct_answer": "B",
+      "difficulty": 2
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Mi volt Oláh István és családjának pontos lakcíme Debrecenben a házasságkötése után?",
+      "answer_a": "Debrecen, Kossuth utca 12.",
+      "answer_b": "Debrecen, Bethlen utca 60.",
+      "answer_c": "Debrecen, Egyetem sugárút 1.",
+      "answer_d": "Debrecen, Piac utca 54.",
+      "correct_answer": "B",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Pontosan mely császári és királyi gyalogezredek kötelékében szolgált Oláh István a háborúban?",
+      "answer_a": "A 3. és 15. gyalogezred kötelékében",
+      "answer_b": "A 39. gyalogezred kötelékében",
+      "answer_c": "A 19. (és 103.) gyalogezred kötelékében",
+      "answer_d": "A 60. gyalogezred kötelékében",
+      "correct_answer": "C",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Melyik ütközet során (1915-16) sérült meg olyan súlyosan Oláh István, hogy az oroszok halottnak hitték és a csatatéren hagyták?",
+      "answer_a": "Oliciniec-nél",
+      "answer_b": "Milno előtt",
+      "answer_c": "A brody-i ütközetben",
+      "answer_d": "Antonowska kolóniánál",
+      "correct_answer": "C",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Mikor és hol szenvedte el a jobb kezét csonkoló aknarobbanást Oláh István?",
+      "answer_a": "1915-ben a Kárpátokban",
+      "answer_b": "1916-ban a brody-i ütközetben",
+      "answer_c": "1917. február 27-én Volhíniában (Antonowska kolónia)",
+      "answer_d": "1944. szeptember 1-jén Debrecenben",
+      "correct_answer": "C",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Pontosan mely két ujját veszítette el Oláh István a jobb kezén az aknarobbanás következtében?",
+      "answer_a": "A gyűrűs- és kisujját",
+      "answer_b": "A középső és gyűrűsujját",
+      "answer_c": "A hüvelyk- és mutatóujját",
+      "answer_d": "A mutató- és középső ujját",
+      "correct_answer": "C",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Hogyan jellemezte parancsnoka Oláh Istvánt a hivatalos jellemzésében az első világháború során?",
+      "answer_a": "\"Kiváló rajzkészséggel megáldott katonaként\"",
+      "answer_b": "\"Kiválóan használható, kötelességtudó és rendkívül bátor tisztként\"",
+      "answer_c": "\"A legtehetségesebb hadmérnökként\"",
+      "answer_d": "\"Fegyelmezetlen, de bátor harcosként\"",
+      "correct_answer": "B",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Melyik festmény NEM tartozik Oláh István felsorolt olajfestményei közé a forrás szövege alapján?",
+      "answer_a": "Hernádparti nyárfák (1923)",
+      "answer_b": "Dűlő út (1928)",
+      "answer_c": "Debreceni tanya (1937)",
+      "answer_d": "Alföldi naplemente (1935)",
+      "correct_answer": "D",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen technikákkal készített meghívót és emléklapot a diákjainak Oláh István?",
+      "answer_a": "Olajfestéssel és akvarellel",
+      "answer_b": "Fametszetes és rézkarcos technikával",
+      "answer_c": "Linómetszettel és szénrajzzal",
+      "answer_d": "Litográfiával és pasztellel",
+      "correct_answer": "B",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen specifikus címet viselt Oláh István az iskolai tisztségei mellett?",
+      "answer_a": "Az Ajtósi Dürer Céh elnöke",
+      "answer_b": "A Debreceni Rajztanárok Egyesületének titkára",
+      "answer_c": "Az Attila B. E. Turul Szépműves törzsfője",
+      "answer_d": "A Kárpáti Baka Szövetség elnöke",
+      "correct_answer": "C",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Milyen minőségben vett részt a diákok leventekiképzésében az 1930-as évek végén?",
+      "answer_a": "\"Emléklapos főhadnagyként\" és testnevelőként",
+      "answer_b": "Katonai szakoktatóként",
+      "answer_c": "Parancsnokhelyettesként",
+      "answer_d": "Tábori lelkészként",
+      "correct_answer": "A",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Mi a pontos azonosítója Oláh István sírjának a Debreceni Köztemetőben?",
+      "answer_a": "XI. B-D-SAROK. 5.",
+      "answer_b": "XII. A-C-SAROK. 2.",
+      "answer_c": "X. E-F-SAROK. 1.",
+      "answer_d": "IX. A-B-SAROK. 3.",
+      "correct_answer": "B",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Mikor (pontos dátummal) rendelte el Kossuth Ferenc a debreceni fémipari szakiskola megalapítását?",
+      "answer_a": "1872. szeptember 1-jén",
+      "answer_b": "1908. június 13-án",
+      "answer_c": "1914. július 28-án",
+      "answer_d": "1923. augusztus 12-én",
+      "correct_answer": "B",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "A kezdeti években az iskola alapítási célkitűzései között melyik iparág SZÁMÁRA NEM neveltek szakképzett segédeket a felsoroltak közül?",
+      "answer_a": "Gépipar",
+      "answer_b": "Épület- és műlakatos ipar",
+      "answer_c": "Bőripar",
+      "answer_d": "Kovácsipar",
+      "correct_answer": "C",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Az 1927/28-as tanévben pontosan hány órában tanította Oláh István a Szabadkézi rajzot és a Tornát?",
+      "answer_a": "Szabadkézi rajz: 8 óra, Torna: 4 óra",
+      "answer_b": "Szabadkézi rajz: 11 óra, Torna: 4 óra",
+      "answer_c": "Szabadkézi rajz: 11 óra, Torna: 8 óra",
+      "answer_d": "Szabadkézi rajz: 23 óra, Torna: 0 óra",
+      "correct_answer": "B",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "A táblázat szerint pontosan melyik időszakban működött az iskola \"Felső ipariskola\" néven?",
+      "answer_a": "1908-1941",
+      "answer_b": "1941-1950",
+      "answer_c": "1951-1970",
+      "answer_d": "1970-1985",
+      "correct_answer": "B",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Melyik nemzetközi és hazai versenyeken végeznek a tanulók rendszeresen az élmezőnyben a forrás szerint?",
+      "answer_a": "OKTV és Nemzetközi Diákolimpiák",
+      "answer_b": "Szakma Kiváló Tanulója Verseny és World Robot Olympiad",
+      "answer_c": "OSZTV és EuroSkills/WorldSkills",
+      "answer_d": "Tudományos Diákköri Konferencia és FIRST Global Challenge",
+      "correct_answer": "C",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Az iskola modernizációja során melyik nagy projekt hozott jelentős eszközfejlesztést?",
+      "answer_a": "Az Európai Unió Phare programja",
+      "answer_b": "A Világbanki modell",
+      "answer_c": "A Széchenyi Terv",
+      "answer_d": "A Nemzeti Fejlesztési Terv",
+      "correct_answer": "B",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "A forrás szerint melyik évben jelentek meg az első számítógépek az iskolában?",
+      "answer_a": "1938-ban",
+      "answer_b": "1970-ben",
+      "answer_c": "1985-ben",
+      "answer_d": "1990-ben",
+      "correct_answer": "A",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Mit tervezett Oláh István az \"Angol Királynő\" szálloda belső átalakításakor (1934) a többi iparművészeti munkán kívül?",
+      "answer_a": "Egy \"Németes szalont\"",
+      "answer_b": "Egy \"Magyaros előszobát\"",
+      "answer_c": "Egy \"Bécsi kávézót\"",
+      "answer_d": "Egy \"Francia éttermet\"",
+      "correct_answer": "B",
+      "difficulty": 3
+    }
+  },
+  {
+    "model": "jatek.question",
+    "fields": {
+      "text": "Hol harcolt Oláh István az első világháborúban (kivételes bátorsággal) a brody-i ütközet és Volhínia ELŐTT?",
+      "answer_a": "Isonzónál és Doberdónál",
+      "answer_b": "A Kárpátokban, Oliciniec-nél és Milno előtt",
+      "answer_c": "Przemyslnél és Gorlicénél",
+      "answer_d": "Szarajevóban és Belgrádban",
+      "correct_answer": "B",
+      "difficulty": 3
+    }
+  }
+]

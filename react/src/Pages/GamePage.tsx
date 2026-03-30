@@ -6,151 +6,118 @@ const GamePage: React.FC = () => {
   const [questions, setQuestions] = useState<any[]>([]);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<number | null>(null); // Mostantól indexet tárolunk (0-3)
   const [isChecking, setIsChecking] = useState(false);
   const navigate = useNavigate();
+
+  // Milliomos nyereménylista (visszafelé a megjelenítéshez)
+  const prizes = [
+    "50.000.000 Ft", "20.000.000 Ft", "10.000.000 Ft", "5.000.000 Ft", "2.000.000 Ft",
+    "1.000.000 Ft", "500.000 Ft", "200.000 Ft", "100.000 Ft", "50.000 Ft",
+    "25.000 Ft", "10.000 Ft", "5.000 Ft", "2.000 Ft", "1.000 Ft"
+  ].reverse();
 
   useEffect(() => {
     const initGame = async () => {
       try {
-        // 1. Összes kérdés lekérése a Djangótól
-        const res = await api.get('/jatek/'); 
-        const allQuestions = res.data;
-
-        if (!allQuestions || allQuestions.length === 0) {
-          throw new Error("Üres az adatbázis.");
+        const res = await api.get('/jatek/millionaire/'); 
+        if (res.data.questions) {
+          setQuestions(res.data.questions);
+          localStorage.setItem('current_quiz_id', res.data.quiz_id);
         }
-
-        // 2. Kérdések csoportosítása nehézség szerint
-        const filterAndShuffle = (diff: number) => 
-            allQuestions
-                .filter((q: any) => Number(q.difficulty) === diff)
-                .sort(() => 0.5 - Math.random());
-
-        const easy = filterAndShuffle(1);
-        const medium = filterAndShuffle(2);
-        const hard = filterAndShuffle(3);
-
-        // 15 kérdés összeállítása: 5 könnyű, 5 közepes, 5 nehéz
-        let gameSet = [
-          ...easy.slice(0, 5),
-          ...medium.slice(0, 5),
-          ...hard.slice(0, 5)
-        ];
-
-        // Biztonsági tartalék: ha nincs elég kérdés a szinteken, feltöltjük randommal
-        if (gameSet.length < 15) {
-          const fillers = allQuestions
-            .filter((q: any) => !gameSet.find(gs => gs.id === q.id))
-            .sort(() => 0.5 - Math.random());
-          gameSet = [...gameSet, ...fillers.slice(0, 15 - gameSet.length)];
-        }
-
-        setQuestions(gameSet);
         setLoading(false);
       } catch (err) {
-        console.error("Betöltési hiba:", err);
-        alert("Hiba: Nem sikerült elérni a kérdéseket a szerverről! Ellenőrizd a Django futását.");
         navigate('/hub');
       }
     };
     initGame();
   }, [navigate]);
 
-  const handleOptionClick = (opt: string) => {
-    if (isChecking) return;
-    setSelectedOption(opt);
-  };
-
   const confirmAnswer = async () => {
-    if (!selectedOption || isChecking) return;
+    if (selectedOption === null || isChecking) return;
     setIsChecking(true);
 
-    try {
-      // Válasz ellenőrzése a backenddel
-      const res = await api.post('/jatek/answer/', {
-        quiz_id: 1, // Fix ID, mivel a /new/ végpontod 404-es
-        question_id: questions[currentIdx].id,
-        selected_answer: selectedOption
-      });
+    const q = questions[currentIdx];
+    const letterOptions = ["A", "B", "C", "D"];
+    const selectedLetter = letterOptions[selectedOption];
 
-      // Drámai szünet az ellenőrzésnél
-      setTimeout(() => {
-        // Ha a backend azt mondja jó, és van még kérdés
-        if (res.data.quiz_active && currentIdx < questions.length - 1) {
+    // Összehasonlítás a backendből jött correct_answer-rel ("A", "B", "C" vagy "D")
+    const isCorrect = selectedLetter === q.correct_answer;
+
+    setTimeout(async () => {
+      if (isCorrect) {
+        if (currentIdx < questions.length - 1) {
           setCurrentIdx(prev => prev + 1);
           setSelectedOption(null);
           setIsChecking(false);
         } else {
-          // Játék vége (kiesés vagy győzelem)
-          localStorage.setItem('last_result', res.data.result || (currentIdx + (res.data.correct ? 1 : 0)).toString());
+          alert("GRATULÁLUNK! ÖN MILLIOMOS LETT!");
           navigate('/results');
         }
-      }, 1200);
-    } catch (err) {
-      console.warn("Backend hiba az ellenőrzésnél, de folytatjuk a játékot...");
-      // Ha a backend nem válaszol, manuálisan léptetünk (teszt üzemmód)
-      setTimeout(() => {
-          if (currentIdx < questions.length - 1) {
-              setCurrentIdx(prev => prev + 1);
-              setSelectedOption(null);
-              setIsChecking(false);
-          } else {
-              navigate('/results');
-          }
-      }, 1000);
-    }
+      } else {
+        alert(`Sajnos rossz válasz! A helyes: ${q.correct_answer}`);
+        navigate('/results');
+      }
+    }, 1500);
   };
 
-  if (loading) return (
-    <div style={{ minHeight: '100vh', background: '#000', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#fcd34d' }}>
-      <h2>KÉRDÉSEK BEOLVASÁSA...</h2>
-    </div>
-  );
+  if (loading || questions.length === 0) return <div style={styles.loader}>KÉRDÉSEK BEOLVASÁSA...</div>;
 
   const q = questions[currentIdx];
-  const options = [q.option_a, q.option_b, q.option_c, q.option_d];
+  const options = [q.answer_a, q.answer_b, q.answer_c, q.answer_d];
 
   return (
     <div style={styles.background}>
+      {/* Bal oldali Pénzfa (Money Tower) */}
+      <div style={styles.moneyTower}>
+        {prizes.slice().reverse().map((prize, index) => {
+          const stepLevel = 14 - index;
+          return (
+            <div key={index} style={{
+              ...styles.moneyStep,
+              color: stepLevel === currentIdx ? '#000' : (stepLevel % 5 === 4 ? '#fff' : '#fcd34d'),
+              backgroundColor: stepLevel === currentIdx ? '#fcd34d' : 'transparent',
+              fontWeight: stepLevel === currentIdx ? 'bold' : 'normal'
+            }}>
+              <span style={{ marginRight: '10px' }}>{stepLevel + 1}</span> {prize}
+            </div>
+          );
+        })}
+      </div>
+
       <div style={styles.container}>
-        <div style={styles.progressBox}>
-          <div style={{ ...styles.progressBar, width: `${((currentIdx + 1) / questions.length) * 100}%` }}></div>
+        <div style={styles.header}>
+            <span style={styles.badge}>SZINT: {q.difficulty === 1 ? 'KÖNNYŰ' : 'HALADÓ'}</span>
+            <h1 style={styles.prizeDisplay}>NYEREMÉNY: {prizes[currentIdx]}</h1>
         </div>
 
-        <div style={{ marginBottom: '20px' }}>
-          <span style={styles.badge}>SZINT: {q.difficulty === 1 ? 'KÖNNYŰ' : q.difficulty === 2 ? 'KÖZEPES' : 'NEHÉZ'}</span>
-          <h2 style={styles.title}>{currentIdx + 1}. KÉRDÉS</h2>
-        </div>
-        
         <div style={styles.questionCard}>
-          <p style={styles.questionText}>{q.question_text}</p>
+          <p style={styles.questionText}>{q.text}</p>
         </div>
 
         <div style={styles.grid}>
           {options.map((opt, i) => (
             <button
               key={i}
-              onClick={() => handleOptionClick(opt)}
-              disabled={isChecking}
+              onClick={() => !isChecking && setSelectedOption(i)}
               style={{
                 ...styles.optionBtn,
-                backgroundColor: selectedOption === opt ? '#fcd34d' : '#1e3a8a',
-                color: selectedOption === opt ? '#000' : '#fff',
-                borderColor: selectedOption === opt ? '#fff' : '#3b82f6',
+                backgroundColor: selectedOption === i ? '#fcd34d' : '#0a0a2e',
+                color: selectedOption === i ? '#000' : '#fff',
+                border: selectedOption === i ? '2px solid #fff' : '2px solid #3b82f6'
               }}
             >
-              <span style={{ color: '#fcd34d', fontWeight: 'bold', marginRight: '10px' }}>{String.fromCharCode(65 + i)}:</span> {opt}
+              <span style={styles.letter}>{String.fromCharCode(65 + i)}:</span> {opt}
             </button>
           ))}
         </div>
 
-        <div style={{ minHeight: '120px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            {selectedOption && (
-              <button onClick={confirmAnswer} disabled={isChecking} style={styles.confirmBtn}>
-                {isChecking ? 'ELLENŐRZÉS...' : 'VÉGLEGES VÁLASZ'}
-              </button>
-            )}
+        <div style={styles.actionArea}>
+          {selectedOption !== null && (
+            <button onClick={confirmAnswer} disabled={isChecking} style={styles.confirmBtn}>
+              {isChecking ? 'LÁSSUK...' : 'VÉGLEGES VÁLASZ'}
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -158,17 +125,21 @@ const GamePage: React.FC = () => {
 };
 
 const styles = {
-  background: { minHeight: '100vh', background: 'radial-gradient(circle, #1a202c 0%, #000000 100%)', color: '#fff', padding: '40px 20px', fontFamily: 'Roboto, sans-serif' } as React.CSSProperties,
-  container: { maxWidth: '900px', margin: '0 auto', textAlign: 'center' } as React.CSSProperties,
-  progressBox: { width: '100%', height: '10px', backgroundColor: '#333', borderRadius: '5px', marginBottom: '30px', overflow: 'hidden' } as React.CSSProperties,
-  progressBar: { height: '100%', backgroundColor: '#fcd34d', transition: 'width 0.5s ease' } as React.CSSProperties,
-  badge: { backgroundColor: '#3b82f6', padding: '5px 15px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold' } as React.CSSProperties,
-  title: { color: '#fcd34d', fontSize: '2rem', marginTop: '10px' } as React.CSSProperties,
-  questionCard: { background: 'linear-gradient(180deg, rgba(30, 58, 138, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%)', padding: '40px', borderRadius: '20px', border: '2px solid #3b82f6', margin: '20px 0' } as React.CSSProperties,
-  questionText: { fontSize: '1.6rem', fontWeight: 'bold' } as React.CSSProperties,
+  background: { minHeight: '100vh', background: '#000', color: '#fff', display: 'flex', fontFamily: 'sans-serif' } as React.CSSProperties,
+  moneyTower: { width: '250px', background: 'rgba(0,0,0,0.8)', borderRight: '2px solid #3b82f6', padding: '10px', display: 'flex', flexDirection: 'column', justifyContent: 'center' } as React.CSSProperties,
+  moneyStep: { padding: '2px 10px', fontSize: '0.9rem', marginBottom: '2px', borderRadius: '5px' } as React.CSSProperties,
+  container: { flex: 1, padding: '40px', textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center' } as React.CSSProperties,
+  header: { marginBottom: '30px' } as React.CSSProperties,
+  prizeDisplay: { color: '#fcd34d', fontSize: '2.5rem', textShadow: '2px 2px #000' } as React.CSSProperties,
+  badge: { background: '#3b82f6', padding: '5px 15px', borderRadius: '20px' } as React.CSSProperties,
+  questionCard: { background: 'linear-gradient(to bottom, #1e3a8a, #000)', padding: '40px', borderRadius: '50px', border: '3px solid #3b82f6', marginBottom: '40px', boxShadow: '0 0 20px #3b82f6' } as React.CSSProperties,
+  questionText: { fontSize: '1.8rem', fontWeight: 'bold' } as React.CSSProperties,
   grid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' } as React.CSSProperties,
-  optionBtn: { padding: '20px', textAlign: 'left', fontSize: '1.1rem', border: '2px solid #3b82f6', borderRadius: '50px', cursor: 'pointer', transition: '0.2s' } as React.CSSProperties,
-  confirmBtn: { padding: '15px 50px', backgroundColor: '#fcd34d', color: '#000', fontSize: '1.2rem', fontWeight: 'bold', border: 'none', borderRadius: '10px', cursor: 'pointer' } as React.CSSProperties,
+  optionBtn: { padding: '20px', borderRadius: '50px', fontSize: '1.2rem', textAlign: 'left', cursor: 'pointer' } as React.CSSProperties,
+  letter: { color: '#fcd34d', fontWeight: 'bold', marginRight: '10px' } as React.CSSProperties,
+  confirmBtn: { padding: '15px 40px', backgroundColor: '#fcd34d', borderRadius: '10px', fontWeight: 'bold', fontSize: '1.2rem', cursor: 'pointer', border: 'none' } as React.CSSProperties,
+  actionArea: { marginTop: '30px', height: '60px' } as React.CSSProperties,
+  loader: { minHeight: '100vh', background: '#000', color: '#fcd34d', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '2rem' } as React.CSSProperties
 };
 
 export default GamePage;

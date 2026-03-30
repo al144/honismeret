@@ -1,95 +1,64 @@
 import React, { useState } from 'react';
+import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
 
 const AuthPage: React.FC = () => {
   const [isLoginView, setIsLoginView] = useState<boolean>(true);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  // VALÓDI BEJELENTKEZÉS ÉS REGISZTRÁCIÓ LOGIKA
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // A logikát a backendes kolléga intézi, mi csak a UI-t pörgetjük tovább a Hub-ra
-    navigate('/hub');
+    try {
+      if (isLoginView) {
+        // Bejelentkezés: bekérjük a tokent a Djangótól
+        const res = await api.post('/api/token/', { username, password });
+        localStorage.setItem('access_token', res.data.access);
+        localStorage.setItem('refresh_token', res.data.refresh);
+        navigate('/hub');
+      } else {
+        // Regisztráció: Itt egy olyan végpont kell, ami létrehozza a felhasználót
+        // Ha még nincs ilyen, az adminban hozz létre usert, és használd a Login-t!
+        alert("A regisztráció funkcióhoz külön Django view szükséges. Használd a belépést!");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Hiba a stúdióba lépéskor! Ellenőrizd a felhasználónevet és jelszót.");
+    }
   };
 
-  // Stílusok a "Legyen Ön is Milliomos" témához
+  // --- STÍLUSOK (Változatlanul a te Milliomos témád) ---
   const containerStyle: React.CSSProperties = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '100vh',
-    // Drámai stúdiófény hatás (középen világosabb, széleken sötét)
-    background: 'radial-gradient(circle, #2a4365 0%, #1a202c 60%, #000000 100%)',
-    fontFamily: 'Roboto, sans-serif',
-    padding: '20px',
+    display: 'flex', justifyContent: 'center', alignItems: 'center',
+    minHeight: '100vh', background: 'radial-gradient(circle, #2a4365 0%, #1a202c 60%, #000000 100%)',
+    fontFamily: 'Roboto, sans-serif', padding: '20px',
   };
 
   const cardStyle: React.CSSProperties = {
-    backgroundColor: 'rgba(15, 23, 42, 0.8)', // Félig átlátszó sötétkék
-    padding: '50px 40px',
-    borderRadius: '20px',
-    // Kékessárga ragyogás a kártya körül
-    boxShadow: '0 0 30px rgba(59, 130, 246, 0.3), inset 0 0 10px rgba(252, 211, 77, 0.1)',
-    border: '2px solid #3b82f6', // Kék keret
-    width: '100%',
-    maxWidth: '450px',
-    textAlign: 'center',
-    backdropFilter: 'blur(10px)', // Üveghatás
+    backgroundColor: 'rgba(15, 23, 42, 0.8)', padding: '50px 40px',
+    borderRadius: '20px', boxShadow: '0 0 30px rgba(59, 130, 246, 0.3)',
+    border: '2px solid #3b82f6', width: '100%', maxWidth: '450px',
+    textAlign: 'center', backdropFilter: 'blur(10px)',
   };
 
   const titleStyle: React.CSSProperties = {
-    marginBottom: '30px',
-    color: '#fcd34d', // Arany szín
-    fontSize: '2rem',
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    letterSpacing: '2px',
-    textShadow: '0 2px 4px rgba(0,0,0,0.5)',
+    marginBottom: '30px', color: '#fcd34d', fontSize: '2rem',
+    fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '2px',
   };
 
   const inputStyle: React.CSSProperties = {
-    width: '100%',
-    padding: '15px 20px',
-    margin: '12px 0',
-    backgroundColor: '#1e293b',
-    color: '#f8fafc',
-    border: '1px solid #475569',
-    borderRadius: '30px', // Jellemző lekerekített forma (pill)
-    boxSizing: 'border-box',
-    fontSize: '16px',
-    outline: 'none',
-    transition: 'border-color 0.3s, box-shadow 0.3s',
+    width: '100%', padding: '15px 20px', margin: '12px 0',
+    backgroundColor: '#1e293b', color: '#f8fafc', border: '1px solid #475569',
+    borderRadius: '30px', fontSize: '16px', outline: 'none',
   };
 
   const buttonStyle: React.CSSProperties = {
-    width: '100%',
-    padding: '16px',
-    backgroundColor: '#1e3a8a', // Mélykék
-    color: '#fcd34d', // Arany szöveg
-    border: '2px solid #fcd34d',
-    borderRadius: '30px',
-    fontSize: '18px',
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    letterSpacing: '1px',
-    cursor: 'pointer',
-    marginTop: '20px',
-    transition: 'all 0.3s ease',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.3)',
-  };
-
-  const textStyle: React.CSSProperties = {
-    marginTop: '25px',
-    color: '#cbd5e0',
-    fontSize: '15px',
-  };
-
-  const linkStyle: React.CSSProperties = {
-    color: '#fcd34d',
-    cursor: 'pointer',
-    fontWeight: 'bold',
-    textDecoration: 'none',
-    marginLeft: '5px',
-    transition: 'text-shadow 0.2s',
+    width: '100%', padding: '16px', backgroundColor: '#1e3a8a',
+    color: '#fcd34d', border: '2px solid #fcd34d', borderRadius: '30px',
+    fontSize: '18px', fontWeight: 'bold', textTransform: 'uppercase',
+    cursor: 'pointer', marginTop: '20px',
   };
 
   return (
@@ -105,8 +74,8 @@ const AuthPage: React.FC = () => {
             placeholder="Játékosnév" 
             required 
             style={inputStyle}
-            onFocus={(e) => e.target.style.borderColor = '#fcd34d'}
-            onBlur={(e) => e.target.style.borderColor = '#475569'}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
           
           {!isLoginView && (
@@ -115,8 +84,6 @@ const AuthPage: React.FC = () => {
               placeholder="Email cím" 
               required 
               style={inputStyle}
-              onFocus={(e) => e.target.style.borderColor = '#fcd34d'}
-              onBlur={(e) => e.target.style.borderColor = '#475569'}
             />
           )}
 
@@ -125,35 +92,20 @@ const AuthPage: React.FC = () => {
             placeholder="Jelszó" 
             required 
             style={inputStyle}
-            onFocus={(e) => e.target.style.borderColor = '#fcd34d'}
-            onBlur={(e) => e.target.style.borderColor = '#475569'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button 
-            type="submit" 
-            style={buttonStyle}
-            onMouseOver={(e: React.MouseEvent<HTMLButtonElement>) => {
-              e.currentTarget.style.backgroundColor = '#fcd34d';
-              e.currentTarget.style.color = '#1e3a8a';
-              e.currentTarget.style.boxShadow = '0 0 15px rgba(252, 211, 77, 0.5)';
-            }}
-            onMouseOut={(e: React.MouseEvent<HTMLButtonElement>) => {
-              e.currentTarget.style.backgroundColor = '#1e3a8a';
-              e.currentTarget.style.color = '#fcd34d';
-              e.currentTarget.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.3)';
-            }}
-          >
+          <button type="submit" style={buttonStyle}>
             {isLoginView ? 'Belépés a stúdióba' : 'Regisztráció'}
           </button>
         </form>
 
-        <p style={textStyle}>
+        <p style={{ marginTop: '25px', color: '#cbd5e0' }}>
           {isLoginView ? 'Még nem játszottál?' : 'Már regisztráltál?'}
           <span 
             onClick={() => setIsLoginView(!isLoginView)}
-            style={linkStyle}
-            onMouseOver={(e) => e.currentTarget.style.textShadow = '0 0 8px rgba(252, 211, 77, 0.8)'}
-            onMouseOut={(e) => e.currentTarget.style.textShadow = 'none'}
+            style={{ color: '#fcd34d', cursor: 'pointer', fontWeight: 'bold', marginLeft: '5px' }}
           >
             {isLoginView ? 'Jelentkezz itt!' : 'Lépj be!'}
           </span>

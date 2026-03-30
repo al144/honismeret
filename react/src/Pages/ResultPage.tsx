@@ -1,13 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const ResultsPage: React.FC = () => {
+const ResultPage: React.FC = () => {
+  const navigate = useNavigate();
+  const score = localStorage.getItem('last_result') || '0';
+
   return (
-    <div style={{ padding: '40px', textAlign: 'center', backgroundColor: '#1a202c', color: '#e2e8f0', minHeight: '100vh' }}>
-      <h1 style={{ color: '#fcd34d' }}>Eddigi Eredményeim</h1>
-      <p>Itt láthatod a korábbi játékaid eredményeit.</p>
-      {/* Ide jön majd az eredmények listája */}
+    <div style={{ minHeight: '100vh', background: '#1a202c', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+      <h1 style={{ color: '#fcd34d' }}>JÁTÉK VÉGE</h1>
+      <p style={{ fontSize: '2rem' }}>Helyes válaszok száma: {score}</p>
+      <button onClick={() => navigate('/hub')} style={{ marginTop: '30px', padding: '15px 30px', background: '#1e3a8a', color: '#fcd34d', border: '2px solid #fcd34d', borderRadius: '10px', cursor: 'pointer' }}>
+        Vissza a főmenübe
+      </button>
     </div>
   );
 };
 
-export default ResultsPage;
+export default ResultPage;

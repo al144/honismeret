@@ -7,4 +7,6 @@ urlpatterns = [
     path('new/', views.create_quiz),
     path('new/<int:diff>/', views.create_quiz_by_diff),
     path('millionaire/', views.create_millionaire_quiz),
+    path('save_result/', views.save_game_result, name='save_result'),
+    path('history/', views.get_game_history, name='history'),
 ]

@@ -6,11 +6,11 @@ const GamePage: React.FC = () => {
   const [questions, setQuestions] = useState<any[]>([]);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [selectedOption, setSelectedOption] = useState<number | null>(null); // Mostantól indexet tárolunk (0-3)
+  const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isChecking, setIsChecking] = useState(false);
   const navigate = useNavigate();
 
-  // Milliomos nyereménylista (visszafelé a megjelenítéshez)
+
   const prizes = [
     "50.000.000 Ft", "20.000.000 Ft", "10.000.000 Ft", "5.000.000 Ft", "2.000.000 Ft",
     "1.000.000 Ft", "500.000 Ft", "200.000 Ft", "100.000 Ft", "50.000 Ft",
@@ -32,35 +32,47 @@ const GamePage: React.FC = () => {
     };
     initGame();
   }, [navigate]);
-
+  const [gameLog, setGameLog] = useState<any[]>([]); // Új state a válaszok gyűjtéséhez
   const confirmAnswer = async () => {
-    if (selectedOption === null || isChecking) return;
-    setIsChecking(true);
+  if (selectedOption === null || isChecking) return;
+  setIsChecking(true);
 
-    const q = questions[currentIdx];
-    const letterOptions = ["A", "B", "C", "D"];
-    const selectedLetter = letterOptions[selectedOption];
+  const q = questions[currentIdx];
+  const letterOptions = ["A", "B", "C", "D"];
+  const selectedLetter = letterOptions[selectedOption];
+  const isCorrect = selectedLetter === q.correct_answer;
 
-    // Összehasonlítás a backendből jött correct_answer-rel ("A", "B", "C" vagy "D")
-    const isCorrect = selectedLetter === q.correct_answer;
-
-    setTimeout(async () => {
-      if (isCorrect) {
-        if (currentIdx < questions.length - 1) {
-          setCurrentIdx(prev => prev + 1);
-          setSelectedOption(null);
-          setIsChecking(false);
-        } else {
-          alert("GRATULÁLUNK! ÖN MILLIOMOS LETT!");
-          navigate('/results');
-        }
-      } else {
-        alert(`Sajnos rossz válasz! A helyes: ${q.correct_answer}`);
-        navigate('/results');
-      }
-    }, 1500);
+  // Elmentjük a mostani választ a naplóba
+  const currentStep = {
+    question_text: q.text,
+    user_answer: `${selectedLetter}: ${[q.answer_a, q.answer_b, q.answer_c, q.answer_d][selectedOption]}`,
+    correct_answer: `${q.correct_answer}: ${[q.answer_a, q.answer_b, q.answer_c, q.answer_d][letterOptions.indexOf(q.correct_answer)]}`,
+    is_correct: isCorrect
   };
+  
+  const newLog = [...gameLog, currentStep];
+  setGameLog(newLog);
 
+  setTimeout(async () => {
+    if (isCorrect && currentIdx < questions.length - 1) {
+      setCurrentIdx(prev => prev + 1);
+      setSelectedOption(null);
+      setIsChecking(false);
+    } else {
+      // JÁTÉK VÉGE - ADATOK KÜLDÉSE A BACKENDRE
+      try {
+        await api.post('/jatek/save_result/', {
+          total_prize: isCorrect ? prizes[currentIdx] : (currentIdx > 0 ? prizes[currentIdx - 1] : "0 Ft"),
+          correct_count: isCorrect ? currentIdx + 1 : currentIdx,
+          details: newLog
+        });
+      } catch (err) {
+        console.error("Hiba a mentéskor", err);
+      }
+      navigate('/results');
+    }
+  }, 1500);
+};
   if (loading || questions.length === 0) return <div style={styles.loader}>KÉRDÉSEK BEOLVASÁSA...</div>;
 
   const q = questions[currentIdx];
@@ -68,7 +80,6 @@ const GamePage: React.FC = () => {
 
   return (
     <div style={styles.background}>
-      {/* Bal oldali Pénzfa (Money Tower) */}
       <div style={styles.moneyTower}>
         {prizes.slice().reverse().map((prize, index) => {
           const stepLevel = 14 - index;

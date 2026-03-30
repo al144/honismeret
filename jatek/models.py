@@ -82,3 +82,22 @@ class UserAnswer(models.Model):
 
     def __str__(self):
         return f"{self.quiz.id} - {self.question.id} - {self.selected_answer}"
+# jatek/models.py
+
+# ... a fájl többi része marad változatlan ...
+
+class GameSession(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    total_prize = models.CharField(max_length=50)
+    correct_count = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.user.username} - {self.total_prize} ({self.date})"
+
+class GameAnswer(models.Model):
+    session = models.ForeignKey(GameSession, related_name='answers', on_delete=models.CASCADE)
+    question_text = models.TextField()
+    user_answer = models.CharField(max_length=255)
+    correct_answer = models.CharField(max_length=255)
+    is_correct = models.BooleanField()

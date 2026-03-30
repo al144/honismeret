@@ -5,7 +5,10 @@ from .serializers import QuestionSerializer
 from rest_framework.permissions import IsAuthenticated
 import random
 from .helper import get_quiz_and_question, save_user_answer, finalize_quiz
-
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from .models import GameSession, GameAnswer
 
 @api_view(["GET"])
 def questions(request):
@@ -13,6 +16,48 @@ def questions(request):
     serialized = QuestionSerializer(questions, many=True)
     return Response(serialized.data)
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def save_game_result(request):
+    data = request.data
+    # Létrehozzuk a fő játékmenetet
+    session = GameSession.objects.create(
+        user=request.user,
+        total_prize=data.get('total_prize', '0 Ft'),
+        correct_count=data.get('correct_count', 0)
+    )
+    
+    # Elmentjük a részletes válaszokat
+    details = data.get('details', [])
+    for item in details:
+        GameAnswer.objects.create(
+            session=session,
+            question_text=item.get('question_text'),
+            user_answer=item.get('user_answer'),
+            correct_answer=item.get('correct_answer'),
+            is_correct=item.get('is_correct')
+        )
+    
+    return Response({"status": "success"})
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_game_history(request):
+    # A legfrissebb játékok legyenek elöl
+    sessions = GameSession.objects.filter(user=request.user).order_by('-date')
+    history_data = []
+    
+    for s in sessions:
+        ans_list = s.answers.all().values('question_text', 'user_answer', 'correct_answer', 'is_correct')
+        history_data.append({
+            "id": s.id,
+            "date": s.date,
+            "total_prize": s.total_prize,
+            "correct_count": s.correct_count,
+            "details": list(ans_list)
+        })
+    
+    return Response(history_data)
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])

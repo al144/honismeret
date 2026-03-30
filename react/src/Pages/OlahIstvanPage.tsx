@@ -6,7 +6,7 @@ const OlahIstvanPage: React.FC = () => {
 
   return (
     <div style={{ minHeight: '100vh', background: '#0f172a', color: 'white', fontFamily: 'Roboto, sans-serif', lineHeight: '1.6' }}>
-      {/* Rögzített fejléc */}
+      {}
       <div style={{ background: '#1e3a8a', padding: '20px', textAlign: 'center', borderBottom: '4px solid #fcd34d', position: 'sticky', top: 0, zIndex: 100 }}>
         <h1 style={{ color: '#fcd34d', margin: 0, fontSize: '1.5rem', textTransform: 'uppercase' }}>Oláh István és a Mechwart Történelme</h1>
         <button 
@@ -18,8 +18,6 @@ const OlahIstvanPage: React.FC = () => {
       </div>
 
       <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '40px' }}>
-        
-        {/* --- OLÁH ISTVÁN SZEKCIÓ --- */}
         <section style={sectionStyle}>
           <h2 style={titleStyle}>Oláh István (1890–1944) Élettörténete és Emlékezete</h2>
           <h3 style={{ color: '#3b82f6' }}>Középiskolai rajztanár, festőművész, és a haza hős katonája</h3>
@@ -54,8 +52,6 @@ const OlahIstvanPage: React.FC = () => {
             <p><strong>Nyughelye:</strong> Földi maradványait 1944. szeptember 4-én helyezték örök nyugalomra a Debreceni Köztemetőben (XII. A-C-SAROK. 2.).</p>
           </div>
         </section>
-
-        {/* --- ISKOLA TÖRTÉNETE SZEKCIÓ --- */}
         <section style={sectionStyle}>
           <h2 style={titleStyle}>Az Iskola Történelmi Mérföldkövei</h2>
           
@@ -105,7 +101,6 @@ const OlahIstvanPage: React.FC = () => {
   );
 };
 
-// --- STÍLUSOK ---
 const sectionStyle: React.CSSProperties = { marginBottom: '60px' };
 const titleStyle: React.CSSProperties = { color: '#fcd34d', borderBottom: '3px solid #3b82f6', paddingBottom: '10px', textTransform: 'uppercase' };
 const contentBoxStyle: React.CSSProperties = { background: 'rgba(30, 41, 59, 0.5)', padding: '25px', borderRadius: '15px' };
